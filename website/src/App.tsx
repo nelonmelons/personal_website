@@ -345,15 +345,6 @@ const SkillItem = styled(motion.div)`
   }
 `;
 
-const Footer = styled.footer`
-  text-align: center;
-  padding: 2rem;
-  background: rgba(10, 0, 20, 0.8);
-  border-top: 1px solid rgba(137, 0, 250, 0.3);
-  color: #b794f6;
-  text-shadow: 0 0 5px rgba(183, 148, 246, 0.5);
-`;
-
 const ResumeButton = styled.a`
   padding: 0.75rem 2rem;
   background: rgba(255, 255, 255, 0.1);

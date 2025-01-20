@@ -71,3 +71,5 @@ env/
 # Misc
 .DS_Store
 Thumbs.db 
+
+.gloudignore
