@@ -70,6 +70,7 @@ const NavLink = styled(Link)`
   transition: all 0.2s ease;
   position: relative;
   padding: 0.5rem 0;
+  cursor: pointer;
 
   &:hover {
     color: #ff00ff;
@@ -116,6 +117,7 @@ const SocialIcons = styled.div`
 
 const Hero = styled.section`
   min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -123,50 +125,13 @@ const Hero = styled.section`
   text-align: center;
   position: relative;
   padding: 2rem;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-      url('/hero-bg.jpg') center/cover;
-    background-attachment: fixed;
-    z-index: -1;
-  }
-`;
-
-const GeometricPattern = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    linear-gradient(30deg, rgba(255, 0, 255, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(255, 0, 255, 0.1) 87.5%, rgba(255, 0, 255, 0.1)),
-    linear-gradient(150deg, rgba(255, 0, 255, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(255, 0, 255, 0.1) 87.5%, rgba(255, 0, 255, 0.1)),
-    linear-gradient(30deg, rgba(255, 0, 255, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(255, 0, 255, 0.1) 87.5%, rgba(255, 0, 255, 0.1)),
-    linear-gradient(150deg, rgba(255, 0, 255, 0.1) 12%, transparent 12.5%, transparent 87%, rgba(255, 0, 255, 0.1) 87.5%, rgba(255, 0, 255, 0.1)),
-    linear-gradient(60deg, rgba(0, 255, 255, 0.1) 25%, transparent 25.5%, transparent 75%, rgba(0, 255, 255, 0.1) 75%, rgba(0, 255, 255, 0.1)),
-    linear-gradient(60deg, rgba(0, 255, 255, 0.1) 25%, transparent 25.5%, transparent 75%, rgba(0, 255, 255, 0.1) 75%, rgba(0, 255, 255, 0.1));
-  background-size: 80px 140px;
-  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
-  opacity: 0.15;
-  z-index: -1;
-  animation: patternMove 30s linear infinite;
-
-  @keyframes patternMove {
-    0% {
-      background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
-    }
-    100% {
-      background-position: 80px 140px, 80px 140px, 120px 210px, 120px 210px, 80px 140px, 120px 210px;
-    }
-  }
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/mountains.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
 `;
 
 const Section = styled(motion.section)`
@@ -194,26 +159,30 @@ const Section = styled(motion.section)`
 
 const ProjectGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
   margin-top: 4rem;
   max-width: 1400px;
   margin: 4rem auto 0;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
 `;
 
 const ProjectCard = styled(motion.a)`
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 3rem;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   background: rgba(108, 0, 209, 0.08);
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
   position: relative;
   transition: all 0.3s ease;
   border: 1px solid rgba(137, 0, 250, 0.2);
   backdrop-filter: blur(10px);
-  min-height: 400px;
+  height: 100%;
   
   &:hover {
     transform: translateY(-8px);
@@ -231,21 +200,22 @@ const ProjectCard = styled(motion.a)`
   
   .project-image {
     width: 100%;
-    height: 100%;
+    height: 300px;
     object-fit: cover;
     transition: transform 0.5s ease;
   }
 
   .project-content {
-    padding: 3rem;
+    padding: 2rem;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
   }
   
   h3 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    margin-bottom: 1rem;
     background: linear-gradient(
       to right,
       #fff,
@@ -266,12 +236,13 @@ const ProjectCard = styled(motion.a)`
   
   p {
     color: rgba(255, 255, 255, 0.9);
-    line-height: 1.8;
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
   }
 
   .tech-stack {
+    margin-top: auto;
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
@@ -293,10 +264,10 @@ const ProjectCard = styled(motion.a)`
   }
 
   @media (max-width: 1200px) {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     
     .project-image {
-      height: 400px;
+      height: 300px;
     }
   }
 `;
@@ -430,15 +401,15 @@ function App() {
         <Nav>
           <Logo to="/">NS</Logo>
           <NavLinks>
-            <NavLink to="/#about">About</NavLink>
-            <NavLink to="/#projects">Projects</NavLink>
-            <NavLink to="/#skills">Skills</NavLink>
+            <NavLink to="/#about" onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}>About</NavLink>
+            <NavLink to="/#projects" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>Projects</NavLink>
+            <NavLink to="/#skills" onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}>Skills</NavLink>
             <NavRight>
               <SocialIcons>
                 <a href="https://github.com/nelonmelons" target="_blank" rel="noopener noreferrer">
                   <FaGithub />
                 </a>
-                <a href="https://linkedin.com/in/nelson-siu" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/nelson-siu-1898a518b/" target="_blank" rel="noopener noreferrer">
                   <FaLinkedin />
                 </a>
                 <a href="mailto:nelson.siu@mail.utoronto.ca">
@@ -451,13 +422,12 @@ function App() {
       </Header>
 
       <Hero>
-        <GeometricPattern />
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           style={{
-            fontSize: '6rem',
+            fontSize: '5.5rem',
             fontWeight: 700,
             marginBottom: '1rem',
             background: 'linear-gradient(135deg, #ff00ff 0%, #00ffff 100%)',
@@ -524,7 +494,7 @@ function App() {
               className="interest"
               whileHover={{ scale: 1.05 }}
             >
-              🎱 Billiards
+              🎱 Pool
             </motion.div>
             <motion.div 
               className="interest"
@@ -570,7 +540,7 @@ function App() {
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
-            <img className="project-image" src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/713/731/datas/original.png" alt="LOCKIN!" />
+            <img className="project-image" src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/713/731/datas/original.png?resize=1504x1128&vertical=center" alt="LOCKIN!" />
             <div className="project-content">
               <h3>LOCKIN!</h3>
               <p>An AI-powered study platform that transforms studying into a gamified experience. Built at DeltaHacks XI.</p>
