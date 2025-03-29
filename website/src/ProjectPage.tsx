@@ -1,14 +1,19 @@
 import { motion } from 'framer-motion';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 const ProjectContainer = styled.div`
   min-height: 100vh;
-  padding: 120px 24px 64px;
-  max-width: 800px;
+  padding: 120px 48px 64px;
+  max-width: 1200px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 120px 24px 64px;
+  }
 `;
 
-const BackButton = styled.a`
+const BackButton = styled(Link)`
   display: inline-flex;
   align-items: center;
   color: rgba(255, 255, 255, 0.8);
@@ -52,15 +57,35 @@ const ProjectHeader = styled.div`
 const ProjectImage = styled.img`
   width: 100%;
   height: auto;
+  min-height: 600px;
   border-radius: 12px;
   margin-bottom: 3rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 5;
+  display: block;
+  opacity: 1 !important;
+  mix-blend-mode: normal;
+  filter: brightness(1) contrast(1);
+  object-fit: contain;
+  object-position: center;
+  background-color: transparent;
+  pointer-events: auto;
+  transform: scale(0.8);
+  transform-origin: center center;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(0.85);
+  }
 `;
 
 const ProjectContent = styled.div`
   color: rgba(255, 255, 255, 0.8);
   font-size: 1.1rem;
   line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
 
   h2 {
     font-size: 2rem;
@@ -120,6 +145,7 @@ interface ProjectPageProps {
   features: string[];
   repoUrl?: string;
   demoUrl?: string;
+  additionalContent?: React.ReactNode;
 }
 
 export function ProjectPage({
@@ -130,7 +156,8 @@ export function ProjectPage({
   description,
   features,
   repoUrl,
-  demoUrl
+  demoUrl,
+  additionalContent
 }: ProjectPageProps) {
   return (
     <motion.div
@@ -140,7 +167,7 @@ export function ProjectPage({
       transition={{ duration: 0.5 }}
     >
       <ProjectContainer>
-        <BackButton href="/#projects">Back to Projects</BackButton>
+        <BackButton to="/#projects">Back to Projects</BackButton>
         <ProjectHeader>
           <h1>{title}</h1>
           <div className="meta">
@@ -160,6 +187,8 @@ export function ProjectPage({
               <li key={index}>{feature}</li>
             ))}
           </ul>
+
+          {additionalContent}
 
           <ProjectLinks>
             {repoUrl && (

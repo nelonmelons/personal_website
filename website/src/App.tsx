@@ -2,8 +2,13 @@ import { motion } from 'framer-motion';
 import styled from '@emotion/styled';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Routes, Route } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { StockML } from './projects/StockML';
+import { Lockin } from './projects/Lockin';
+import { DoraHacks } from './projects/DoraHacks';
+import { Cognspective } from './projects/Cognspective';
+import { MemoryMake } from './projects/MemoryMake';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -171,7 +176,7 @@ const ProjectGrid = styled.div`
   }
 `;
 
-const ProjectCard = styled(motion.a)`
+const ProjectCard = styled(Link)`
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -190,7 +195,7 @@ const ProjectCard = styled(motion.a)`
     background: rgba(108, 0, 209, 0.12);
 
     .project-image {
-      transform: scale(1.05);
+      transform: scale(0.8);
     }
 
     h3 {
@@ -248,18 +253,11 @@ const ProjectCard = styled(motion.a)`
     flex-wrap: wrap;
     
     span {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.9);
-      background: rgba(137, 0, 250, 0.2);
       padding: 0.5rem 1rem;
-      border-radius: 8px;
-      backdrop-filter: blur(5px);
-      transition: all 0.3s ease;
-
-      &:hover {
-        background: rgba(137, 0, 250, 0.3);
-        transform: translateY(-2px);
-      }
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
     }
   }
 
@@ -396,233 +394,226 @@ function App() {
   }, []);
 
   return (
-    <Container>
-      <Header>
-        <Nav>
-          <Logo to="/">NS</Logo>
-          <NavLinks>
-            <NavLink to="/#about" onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}>About</NavLink>
-            <NavLink to="/#projects" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>Projects</NavLink>
-            <NavLink to="/#skills" onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}>Skills</NavLink>
-            <NavRight>
-              <SocialIcons>
-                <a href="https://github.com/nelonmelons" target="_blank" rel="noopener noreferrer">
-                  <FaGithub />
-                </a>
-                <a href="https://www.linkedin.com/in/nelson-siu-1898a518b/" target="_blank" rel="noopener noreferrer">
-                  <FaLinkedin />
-                </a>
-                <a href="mailto:nelson.siu@mail.utoronto.ca">
-                  <FaEnvelope />
-                </a>
-              </SocialIcons>
-            </NavRight>
-          </NavLinks>
-        </Nav>
-      </Header>
+    <Routes>
+      <Route path="/" element={
+        <Container>
+          <Header>
+            <Nav>
+              <Logo to="/">NS</Logo>
+              <NavLinks>
+                <NavLink to="/#about" onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}>About</NavLink>
+                <NavLink to="/#projects" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>Projects</NavLink>
+                <NavLink to="/#skills" onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}>Skills</NavLink>
+                <NavRight>
+                  <SocialIcons>
+                    <a href="https://github.com/nelonmelons" target="_blank" rel="noopener noreferrer">
+                      <FaGithub />
+                    </a>
+                    <a href="https://www.linkedin.com/in/nelson-siu-1898a518b/" target="_blank" rel="noopener noreferrer">
+                      <FaLinkedin />
+                    </a>
+                    <a href="mailto:nelson.siu@mail.utoronto.ca">
+                      <FaEnvelope />
+                    </a>
+                  </SocialIcons>
+                </NavRight>
+              </NavLinks>
+            </Nav>
+          </Header>
 
-      <Hero>
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          style={{
-            fontSize: '5.5rem',
-            fontWeight: 700,
-            marginBottom: '1rem',
-            background: 'linear-gradient(135deg, #ff00ff 0%, #00ffff 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            textShadow: '0 0 30px rgba(255, 0, 255, 0.3)'
-          }}
-        >
-          Nelson Siu
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          style={{
-            fontSize: '1.5rem',
-            color: 'var(--text-secondary)',
-            maxWidth: '600px',
-            margin: '0 auto',
-            textShadow: '0 0 10px rgba(255, 255, 255, 0.1)'
-          }}
-        >
-          Engineering Science Student at University of Toronto
-        </motion.p>
-      </Hero>
-
-      <Section
-        id="about"
-        ref={ref}
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8 }}
-      >
-        <h2>About Me</h2>
-        <AboutContent>
-          <p>
-            Engineering Science student at the University of Toronto, passionate about the intersection of 
-            technology and finance. I love exploring innovative solutions in quantitative trading and financial modeling.
-          </p>
-          <p>
-            When I'm not diving into markets and algorithms, you'll find me expressing creativity through music 
-            or staying active with various sports and activities.
-          </p>
-          <div className="interests">
-            <motion.div 
-              className="interest"
-              whileHover={{ scale: 1.05 }}
-            >
-              📈 Quantitative Finance
-            </motion.div>
-            <motion.div 
-              className="interest"
-              whileHover={{ scale: 1.05 }}
-            >
-              🎹 Piano
-            </motion.div>
-            <motion.div 
-              className="interest"
-              whileHover={{ scale: 1.05 }}
-            >
-              🎻 Cello
-            </motion.div>
-            <motion.div 
-              className="interest"
-              whileHover={{ scale: 1.05 }}
-            >
-              🎱 Pool
-            </motion.div>
-            <motion.div 
-              className="interest"
-              whileHover={{ scale: 1.05 }}
-            >
-              💪 Fitness
-            </motion.div>
-          </div>
-          <div style={{ marginTop: '3rem' }}>
-            <ResumeButton href="resume.pdf">View Resume</ResumeButton>
-          </div>
-        </AboutContent>
-      </Section>
-
-      <Section
-        id="projects"
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8 }}
-      >
-        <h2>Projects</h2>
-        <ProjectGrid>
-          <ProjectCard 
-            href="/projects/cognspective"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-          >
-            <img className="project-image" src="/cognspective.png" alt="Cognspective" />
-            <div className="project-content">
-              <h3>Cognspective</h3>
-              <p>An AI-powered educational platform that enhances learning by allowing users to teach concepts across different educational levels, with real-time feedback and performance analysis.</p>
-              <div className="tech-stack">
-                <span>Python</span>
-                <span>AI/ML</span>
-                <span>OpenCV</span>
-                <span>Flask</span>
-              </div>
-            </div>
-          </ProjectCard>
-
-          <ProjectCard 
-            href="/projects/lockin"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-          >
-            <img className="project-image" src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/713/731/datas/original.png?resize=1504x1128&vertical=center" alt="LOCKIN!" />
-            <div className="project-content">
-              <h3>LOCKIN!</h3>
-              <p>An AI-powered study platform that transforms studying into a gamified experience. Built at DeltaHacks XI.</p>
-              <div className="tech-stack">
-                <span>Python</span>
-                <span>TensorFlow</span>
-                <span>Arduino</span>
-                <span>Streamlit</span>
-              </div>
-            </div>
-          </ProjectCard>
-
-          <ProjectCard 
-            href="/projects/stock-ml"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-          >
-            <img className="project-image" src="stockmlpic.png" alt="Stock Volatility ML Model" />
-            <div className="project-content">
-              <h3>Stock Volatility ML Model</h3>
-              <p>Advanced machine learning model for forecasting market volatility using LSTM networks and real-time data processing.</p>
-              <div className="tech-stack">
-                <span>Python</span>
-                <span>TensorFlow</span>
-                <span>Pandas</span>
-                <span>Scikit-learn</span>
-              </div>
-            </div>
-          </ProjectCard>
-
-          <ProjectCard 
-            href="/projects/finance-dashboard"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-          >
-            <img className="project-image" src="https://cdn.dribbble.com/userupload/15102201/file/original-027852f29042a044c4be258a40f12d1e.png?resize=1504x1128&vertical=center" alt="Finance Dashboard" />
-            <div className="project-content">
-              <h3>Finance Dashboard</h3>
-              <p>Real-time financial analytics platform with interactive visualizations and automated reporting capabilities.</p>
-              <div className="tech-stack">
-                <span>React</span>
-                <span>TypeScript</span>
-                <span>D3.js</span>
-                <span>Node.js</span>
-              </div>
-            </div>
-          </ProjectCard>
-        </ProjectGrid>
-      </Section>
-
-      <Section
-        id="skills"
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8 }}
-      >
-        <h2>Skills</h2>
-        <SkillsGrid>
-          {[
-            { name: 'Python', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-            { name: 'React', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-            { name: 'C/C++', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' },
-            { name: 'TypeScript', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
-            { name: 'Flask', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg' },
-            { name: 'Node.js', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-            { name: 'Docker', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
-            { name: 'MongoDB', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
-            { name: 'PostgreSQL', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' }
-          ].map((skill, index) => (
-            <SkillItem
-              key={index}
+          <Hero>
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              style={{
+                fontSize: '5.5rem',
+                fontWeight: 700,
+                marginBottom: '1rem',
+                background: 'linear-gradient(135deg, #ff00ff 0%, #00ffff 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textShadow: '0 0 30px rgba(255, 0, 255, 0.3)'
+              }}
             >
-              <img src={skill.img} alt={skill.name} />
-              <p>{skill.name}</p>
-            </SkillItem>
-          ))}
-        </SkillsGrid>
-      </Section>
-    </Container>
+              Nelson Siu
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              style={{
+                fontSize: '1.5rem',
+                color: 'var(--text-secondary)',
+                maxWidth: '600px',
+                margin: '0 auto',
+                textShadow: '0 0 10px rgba(255, 255, 255, 0.1)'
+              }}
+            >
+              Engineering Science Student at University of Toronto
+            </motion.p>
+          </Hero>
+
+          <Section id="about" ref={ref} initial={{ opacity: 0, y: 50 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
+            <h2>About Me</h2>
+            <AboutContent>
+              <p>
+                Engineering Science student at the University of Toronto, passionate about the intersection of 
+                technology and finance. I love exploring innovative solutions in quantitative trading and financial modeling.
+              </p>
+              <p>
+                When I'm not diving into markets and algorithms, you'll find me expressing creativity through music 
+                or staying active with various sports and activities.
+              </p>
+              <div className="interests">
+                <motion.div 
+                  className="interest"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  📈 Quantitative Finance
+                </motion.div>
+                <motion.div 
+                  className="interest"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  🎹 Piano
+                </motion.div>
+                <motion.div 
+                  className="interest"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  🎻 Cello
+                </motion.div>
+                <motion.div 
+                  className="interest"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  🎱 Pool
+                </motion.div>
+                <motion.div 
+                  className="interest"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  💪 Fitness
+                </motion.div>
+              </div>
+              <div style={{ marginTop: '3rem' }}>
+                <ResumeButton href="resume.pdf">View Resume</ResumeButton>
+              </div>
+            </AboutContent>
+          </Section>
+
+          <Section id="projects" initial={{ opacity: 0, y: 50 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
+            <h2>Projects</h2>
+            <ProjectGrid>
+              <ProjectCard to="/projects/memorymake">
+                <img src="/mm1.jpg" alt="MemoryMake" className="project-image" />
+                <div className="project-content">
+                  <div>
+                    <h3>MemoryMake</h3>
+                    <p>Transform your photos and text prompts into immersive 3D environments using our custom depth estimation and mesh generation pipeline.</p>
+                  </div>
+                  <div className="tech-stack">
+                    <span>Three.js</span>
+                    <span>MiDaS</span>
+                    <span>Open3D</span>
+                    <span>FastAPI</span>
+                  </div>
+                </div>
+              </ProjectCard>
+
+              <ProjectCard to="/projects/cognspective">
+                <img className="project-image" src="/cognspective.png" alt="Cognspective" />
+                <div className="project-content">
+                  <h3>Cognspective</h3>
+                  <p>An AI-powered educational platform that enhances learning by allowing users to teach concepts across different educational levels, with real-time feedback and performance analysis.</p>
+                  <div className="tech-stack">
+                    <span>Python</span>
+                    <span>AI/ML</span>
+                    <span>OpenCV</span>
+                    <span>Flask</span>
+                  </div>
+                </div>
+              </ProjectCard>
+
+              <ProjectCard to="/projects/lockin">
+                <img className="project-image" src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/713/731/datas/original.png?resize=1504x1128&vertical=center" alt="LOCKIN!" />
+                <div className="project-content">
+                  <h3>LOCKIN!</h3>
+                  <p>An AI-powered study platform that transforms studying into a gamified experience. Built at DeltaHacks XI.</p>
+                  <div className="tech-stack">
+                    <span>Python</span>
+                    <span>TensorFlow</span>
+                    <span>Arduino</span>
+                    <span>Streamlit</span>
+                  </div>
+                </div>
+              </ProjectCard>
+
+              <ProjectCard to="/projects/stockml">
+                <img className="project-image" src="stockmlpic.png" alt="Stock Volatility ML Model" />
+                <div className="project-content">
+                  <h3>Stock Volatility ML Model</h3>
+                  <p>Advanced machine learning model for forecasting market volatility using LSTM networks and real-time data processing.</p>
+                  <div className="tech-stack">
+                    <span>Python</span>
+                    <span>TensorFlow</span>
+                    <span>Pandas</span>
+                    <span>Scikit-learn</span>
+                  </div>
+                </div>
+              </ProjectCard>
+
+              <ProjectCard to="/projects/finance-dashboard">
+                <img className="project-image" src="https://cdn.dribbble.com/userupload/15102201/file/original-027852f29042a044c4be258a40f12d1e.png?resize=1504x1128&vertical=center" alt="Finance Dashboard" />
+                <div className="project-content">
+                  <h3>Finance Dashboard</h3>
+                  <p>Real-time financial analytics platform with interactive visualizations and automated reporting capabilities.</p>
+                  <div className="tech-stack">
+                    <span>React</span>
+                    <span>TypeScript</span>
+                    <span>D3.js</span>
+                    <span>Node.js</span>
+                  </div>
+                </div>
+              </ProjectCard>
+            </ProjectGrid>
+          </Section>
+
+          <Section id="skills" initial={{ opacity: 0, y: 50 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }}>
+            <h2>Skills</h2>
+            <SkillsGrid>
+              {[
+                { name: 'Python', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+                { name: 'React', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+                { name: 'C/C++', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' },
+                { name: 'TypeScript', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+                { name: 'Flask', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg' },
+                { name: 'Node.js', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+                { name: 'Docker', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+                { name: 'MongoDB', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+                { name: 'PostgreSQL', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' }
+              ].map((skill, index) => (
+                <SkillItem
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <img src={skill.img} alt={skill.name} />
+                  <p>{skill.name}</p>
+                </SkillItem>
+              ))}
+            </SkillsGrid>
+          </Section>
+        </Container>
+      } />
+      <Route path="/projects/memorymake" element={<MemoryMake />} />
+      <Route path="/projects/cognspective" element={<Cognspective />} />
+      <Route path="/projects/dorahacks" element={<DoraHacks />} />
+      <Route path="/projects/lockin" element={<Lockin />} />
+      <Route path="/projects/stockml" element={<StockML />} />
+    </Routes>
   );
 }
 

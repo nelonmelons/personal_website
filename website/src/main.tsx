@@ -5,6 +5,7 @@ import App from './App'
 import { StockML } from './projects/StockML'
 import { Lockin } from './projects/Lockin'
 import { Cognspective } from './projects/Cognspective'
+import { MemoryMake } from './projects/MemoryMake'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -12,9 +13,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/projects/stock-ml" element={<StockML />} />
+        <Route path="/projects/stockml" element={<StockML />} />
         <Route path="/projects/lockin" element={<Lockin />} />
         <Route path="/projects/cognspective" element={<Cognspective />} />
+        <Route path="/projects/memorymake" element={<MemoryMake />} />
       </Routes>
     </Router>
   </React.StrictMode>,
